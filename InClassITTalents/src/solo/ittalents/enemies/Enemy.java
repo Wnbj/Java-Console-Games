@@ -11,6 +11,7 @@ public class Enemy {
 	private String name;
 	private int damage;
 	private int health;
+	private int currentHealth;
 	private Item item;
 	private boolean isAlive = true;
 	
@@ -19,7 +20,16 @@ public class Enemy {
 		this.name = name;
 		this.damage = damage;
 		this.health = healt;
-		this.item = giveItem();
+		this.currentHealth = healt;
+		this.giveItem();
+	}
+
+	public int getCurrentHealth() {
+		return currentHealth;
+	}
+
+	public void setCurrentHealth(int currentHealth) {
+		this.currentHealth = currentHealth;
 	}
 
 	public boolean isAlive() {
@@ -33,7 +43,7 @@ public class Enemy {
 	public Item getItem() {
 		return item;
 	}
-
+	
 	public String getName() {
 		return name;
 	}
@@ -67,7 +77,7 @@ public class Enemy {
 		hero.setCurrentHealth(hero.getCurrentHealth() - this.damage);
 	}
 	
-	private Item giveItem(){
+	public void giveItem(){
 		
 		ArrayList<Item> items = new ArrayList<>();
 
@@ -94,16 +104,18 @@ public class Enemy {
 		items.add(new Item("Shield of Starks", "Shield", 20, 5));
 		
 		Collections.shuffle(items);
-		return items.get(0);
-		
+		this.setCurrentHealth(items.get(0).getIncreaseHealth() + this.getHealth());
+		this.setDamage(this.damage + items.get(0).getIncreaseDamage());
+		 item = items.get(0);		
 	}
+	
 	//Printing stats
 	@Override
 	public String toString() {
 		return String.format("Name: %s%nDamage: %d%nHealth: %d%nItem: %s - %s%n",
 				this.getName(),
 				this.getDamage(),
-				this.getHealth(),
+				this.getCurrentHealth(),
 				this.getItem().getName(),
 				this.getItem().getType());
 	}

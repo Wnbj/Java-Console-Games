@@ -5,9 +5,14 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 
+import org.omg.PortableServer.THREAD_POLICY_ID;
+
 import solo.ittalents.enemies.Enemy;
 
 public class Hero {
+	
+	private static final int BASIC_DAMAGE = 8;
+	private static final int BASIC_HEALTH = 70;
 	
 	String name;
 	private int currentHealth;
@@ -17,11 +22,12 @@ public class Hero {
 	private boolean isAlive = true;
 	
 	
+	
 	public Hero(String name){
 		this.name = name;
-		this.health = 70;
+		this.health = BASIC_HEALTH;
 		this.currentHealth = this.health;
-		this.damage = 8;
+		this.damage = BASIC_DAMAGE;
 		this.items = new HashMap<>();
 	}
 
@@ -89,10 +95,12 @@ public class Hero {
 			else {
 				enemy.hit(this);
 			}
-			if (enemy.getHealth() <= 0) {
+			if (enemy.getCurrentHealth() <= 0) {
 				
 				System.out.println(enemy.getName() + " is dead.\n" + "The enemy droped " + enemy.getItem().getName());	
 				enemy.setAlive(false);
+				enemy.setCurrentHealth(enemy.getHealth());
+				
 				System.out.println("----------------------------------------");
 				System.out.println("Do you like to inspect this item?  Y/N");
 				
@@ -105,6 +113,7 @@ public class Hero {
 					System.out.println("----------------------------------------");
 					System.out.println("Do you like to wear this item? Y/N");
 					String wearItem = scan.nextLine();
+					enemy.giveItem();
 					if (wearItem.equals("Y")) {
 						takeItem(enemy.getItem());
 						System.out.println("----------------------------------------");
@@ -127,6 +136,7 @@ public class Hero {
 			this.items.remove(item.getType());
 			this.items.put(item.getType(), item);
 		}
+		wearItems();
 	}
 	
 	private void lookAtTheItem(Item item){
@@ -138,7 +148,7 @@ public class Hero {
 	}
 	
 	private void hit(Enemy enemy){
-		enemy.setHealth(enemy.getHealth() - this.damage);
+		enemy.setCurrentHealth(enemy.getCurrentHealth() - this.damage);
 	}
 	
 	//print hero stats
@@ -196,4 +206,16 @@ public class Hero {
 			this.setDamage(this.getDamage() + 100);
 		}
 	}
+	
+	private void wearItems(){
+		for(Map.Entry<String, Item> entry : items.entrySet()){
+			
+			int damage = entry.getValue().getIncreaseDamage() + BASIC_DAMAGE;
+			int health = entry.getValue().getIncreaseHealth() + BASIC_HEALTH;
+			this.setDamage(damage);
+			this.setHealth(health);
+			
+		}
+	}
+	
 }
