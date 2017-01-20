@@ -113,7 +113,7 @@ public class Hero {
 					System.out.println("----------------------------------------");
 					System.out.println("Do you like to wear this item? Y/N");
 					String wearItem = scan.nextLine();
-					enemy.giveItem();
+					
 					if (wearItem.equals("Y")) {
 						takeItem(enemy.getItem());
 						System.out.println("----------------------------------------");
@@ -121,6 +121,7 @@ public class Hero {
 						isWearingShashank();
 						System.out.println("----------------------------------------");
 					}
+					enemy.giveItem();
 				}
 					break;		
 			}		
