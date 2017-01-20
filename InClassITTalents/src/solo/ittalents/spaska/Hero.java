@@ -165,7 +165,6 @@ public class Hero {
 			
 			  String key = entry.getKey();
 			  String value = entry.getValue().getName();	
-				System.out.println("The hero have no items.");
 			
 				  System.out.printf(key + " - " + value + "%n");
 				  counter++;
@@ -209,14 +208,16 @@ public class Hero {
 	}
 	
 	private void wearItems(){
+		int bonusDamage = 0;
+		int bonusHealth = 0;
 		for(Map.Entry<String, Item> entry : items.entrySet()){
 			
-			int damage = entry.getValue().getIncreaseDamage() + BASIC_DAMAGE;
-			int health = entry.getValue().getIncreaseHealth() + BASIC_HEALTH;
-			this.setDamage(damage);
-			this.setHealth(health);
+			bonusDamage += entry.getValue().getIncreaseDamage();
+			bonusHealth += entry.getValue().getIncreaseHealth();	
 			
 		}
+		this.setDamage(bonusDamage + BASIC_DAMAGE);
+		this.setHealth(bonusHealth + BASIC_HEALTH);
 	}
 	
 }
