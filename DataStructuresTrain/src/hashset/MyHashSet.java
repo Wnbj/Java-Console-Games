@@ -27,10 +27,8 @@ public class MyHashSet {
 		//System.out.println(tableIdx);
 		boolean isExist = false;
 		
-		for (int i = 0; i < table.length; i++) {
-			if (this.table[i] != null && this.table[i].contains(data)) {
-				isExist = true;
-			}
+			if (this.table[tableIdx] != null && this.table[tableIdx].contains(data)) {
+				isExist = true;		
 		}
 		
 		if (!isExist) {
@@ -75,19 +73,16 @@ public class MyHashSet {
 	}
 	
 	public boolean contains(Object data){
-		for (int i = 0; i < this.tableSize; i++) {
-			if (table[i] != null) {
-				
-				for (int j = 0; j < this.table[i].size(); j++) {				
-					if (this.table[i] != null) {
-						if (table[i].get(j).equals(data)) {
+		//TODO make this method to work O(1). Now its O(n+k). Ask about Math.Abs!		
+		
+		int idx = Math.abs(data.hashCode()) % this.tableSize;	
+		
+			if (table[idx] != null) {										
+						if (table[idx].contains(data)) {
 							return true;
-						}											
-					}
-					
+						}															
 				}
-			}		
-		}
+
 		return false;	
 	}
 	
