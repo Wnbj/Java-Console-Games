@@ -26,12 +26,13 @@ public class MyHashSet {
 		}
 		//System.out.println(tableIdx);
 		
-			if (this.table[tableIdx] != null && !this.table[tableIdx].contains(data)) {
-				table[tableIdx].add(data);
-				elementsNum++;	
+		if (!this.table[tableIdx].contains(data)) {
+			table[tableIdx].add(data);
+			elementsNum++;	
 		}
 				
 			int tempSize = 0;
+			
 		if (this.usedFields > this.tableSize * 0.75) {
 			tempSize = this.tableSize + (this.tableSize/2) + 1;
 			//System.out.println("REHASH");
