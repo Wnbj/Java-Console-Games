@@ -84,20 +84,19 @@ public class MyHashSet {
 	
 	@Override
 	public String toString() {
-		String temp = "";
+		
+		StringBuilder sb = new StringBuilder();
 		
 		for (int i = 0; i < this.tableSize; i++) {
 			if (table[i] != null) {
 				for (int j = 0; j < this.table[i].size(); j++) {
 					
-					if (this.table[i] != null) {
-						temp += table[i].get(j).toString() + " ";
-					}
-					
+						sb.append(table[i].get(j).toString());
+						sb.append(" ");					
 				}
 			}		
 		}
-		return temp;
+		return sb.toString();
 	}
 	
 	public int size(){
