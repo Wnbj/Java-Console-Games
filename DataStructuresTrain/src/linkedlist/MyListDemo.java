@@ -71,6 +71,7 @@ public class MyListDemo {
 		System.out.println(mySet.contains("wess"));
 		System.out.println(mySet);
 		System.out.println(mySet.size());
+		System.out.println(mySet.isEmpty());
 		
 				
 	}

@@ -74,9 +74,9 @@ public class MyHashSet {
 		int idx = Math.abs(data.hashCode()) % this.tableSize;	
 		
 			if (table[idx] != null) {										
-						if (table[idx].contains(data)) {
-							return true;
-						}															
+					if (table[idx].contains(data)) {
+						return true;
+					}															
 				}
 
 		return false;	
@@ -91,12 +91,16 @@ public class MyHashSet {
 			if (table[i] != null) {
 				for (int j = 0; j < this.table[i].size(); j++) {
 					
-						sb.append(table[i].get(j).toString());
-						sb.append(" ");					
+					sb.append(table[i].get(j).toString());
+					sb.append(" ");					
 				}
 			}		
 		}
 		return sb.toString();
+	}
+	
+	public boolean isEmpty(){
+		return elementsNum < 1;
 	}
 	
 	public int size(){
